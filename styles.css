@@ -1,0 +1,25 @@
+body {
+	background-color: sandybrown;
+}
+
+h1 {
+	text-align: center;
+	color: lightyellow;
+}
+
+h2 {
+	text-align: center;
+	color: white;
+}
+
+.container {
+    position: relative;
+}
+
+.animated-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, top 1s ease-in-out;
+}
