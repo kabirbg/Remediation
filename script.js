@@ -56,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     document.querySelectorAll('.slider').forEach((mixer, index) => {
+      const audioLeft = document.getElementById(`audio${index+1}left`);
+      audioLeft.volume = 1;
+      const audioRight = document.getElementById(`audio${index+1}right`);
+      audioRight.volume = 0;
       mixer.style.opacity = 1;
       mixer.addEventListener('input', function() {
         const volumeValue = parseInt(mixer.value);
-        const audioLeft = document.getElementById(`audio${index+1}left`);
-        const audioRight = document.getElementById(`audio${index+1}right`);
         audioLeft.volume = 1 - volumeValue / 100;
-        console.log(audioLeft.volume);
         audioRight.volume = volumeValue / 100;
-        console.log(audioRight.volume);
       });
     })
   }
