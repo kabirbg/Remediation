@@ -1,28 +1,67 @@
-/*
-const people = [ 'T', 'W', 'E', 'L', 'V', 'E', 'P', 'E', 'O', 'P,' 'L', 'E' ];
-for (let i=0; i<people.length; i++)
-	var image = "<img src=\"people" + i + ".png\" alt=\"" + people[i] + "\" height=200>"
-	document.write(image)
-	document.getElementByID("twelvepeople").innerHTML = image;
-
-	function frame()
-*/
-
 document.addEventListener('DOMContentLoaded', function() {
-    const images = document.querySelectorAll('.animated-image');
+  
+  /* CONSTANTS DECLARATIONS */
 
-    // Loop through each image and animate them
+  const container = document.querySelector('.grid-container');
+  const people = [ 'T', 'W', 'E', 'L', 'V', 'E', 'P', 'E', 'O', 'P', 'L', 'E' ];
+  const instructions = [ "each", "to", "repeat", "for", "one", "minute",
+    "constantly", "the", "following", "noise", "making", "onomatopoeia" ];
+  const nmot = [
+    "tentententententen",
+    "enennenennenennenennenennenennen",
+    "yoummoooyouyoummoooyouyoumooyouooo",
+    "tea.tea.tea.tea.tea.tea.tea.tea.tea",
+    "miaaaaaanayoooo,miaaaaaaaanayooooo",
+    "sta—sta—sta—sta—sta",
+    "lalalalalalalalalalalalalalalalalalalaslalalala",
+    "fftfftfftfftfftfftfftfftfftfftfftfftfft",
+    "reoooreoooreoooreoooreoooreoooreooreooo",
+    "scscscscscspsspscscscscscspssps",
+    "yeayeayeayeayeayeayeayeayeayeayea",
+    "nunnnooonunnnooonunnnooonunnnooonunnnooo"
+  ];
+
+  /* MAIN BODY */
+  insertImages("people", people, 0); //100
+  setTimeout(() => shiftImages("people"), 0); //5000
+  setTimeout(() => insertImages("instructions", instructions, 75), 0); //7000
+  setTimeout(() => shiftImages("instructions"), 0); //14000
+  setTimeout(() => insertImages("nmot", nmot, 35), 0); //16000
+
+
+
+  /* FUNCTIONS DECLARATIONS */
+
+  // Add 12 images of a pattern
+  function insertImages(name, arr, height) {
+    for (let i = 1; i <= 12; i++) {
+      const img = document.createElement("img");
+      img.src = `resources/${name}/${i}.png`;
+      img.alt = arr[i - 1];
+      img.height = height;
+      img.classList.add(`image${i}`); // Add CSS class for styling
+      container.appendChild(img);
+    }
+    fadeImages();
+  }
+
+  // Replace the grid of images images with their copies at the top
+  function shiftImages(id){
+      fadeImages(fadeOut=true); // Trigger fade-out animation
+      container.innerHTML = ''; // Clear existing images from the container
+      document.querySelectorAll(`#${id}`).forEach(element => {
+        element.style.opacity = '1'; // Set opacity of the actual images to 1
+        element.style.transition = 'opacity 1s ease-in-out' // Fade in
+      });
+  }
+
+  // Fade images in/out
+  function fadeImages(fadeOut=false) {
+    const images = document.querySelectorAll('.grid-container img');
     images.forEach((image, index) => {
-        // Delay each image animation
-        setTimeout(() => {
-            // Set initial position and opacity
-            image.style.opacity = '1';
-            image.style.top = '50px'; // Adjust the desired position from the top
-
-            // After a delay, move the image to the top
-            setTimeout(() => {
-                image.style.top = '0';
-            }, 1000); // Adjust the delay time as needed
-        }, index * 1000); // Adjust the delay between each image
+      setTimeout(() => {
+        image.style.opacity = fadeOut ? 0 : 1; // Fade out each image
+      }, index * 250); // Delay each image by 250 ms for staggered fade-in
     });
+  }
 });
