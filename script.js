@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("timer").innerText = "You have " + --seconds + " seconds remaining.";
          timer = setTimeout(update, 1000);
       } else {
+          document.querySelectorAll('audio').forEach(el => el.pause());
           alert('Your one minute of noise-making onomatopoeia is over. Close the page or reload to play again.');
           location.reload();
         }
